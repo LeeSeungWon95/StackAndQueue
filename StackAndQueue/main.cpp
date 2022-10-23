@@ -2,11 +2,12 @@
 #include <vector>
 #include <list>
 #include <stack>
+#include <queue>
 
 using namespace std;
 
-template<typename T, typename Container = vector<T>>
-class Stack
+template<typename T>
+class ListQueue
 {
 public:
 	void push(const T& value)
@@ -16,35 +17,36 @@ public:
 
 	void pop()
 	{
-		_container.pop_back();
+		_container.pop_front();
 	}
 
-	T& top()
+	T& front()
 	{
-		return _container.back();
+		return _container.front();
 	}
 
 	bool empty() { return _container.empty(); }
 	int size() { return _container.size(); }
 
 private:
-	Container _container;
+	list<T> _container;
 };
 
 int main()
 {
-	Stack<int, list<int>> s;
-	s.push(1);
-	s.push(2);
-	s.push(3);
-
-	while (s.empty() == false)
+	ListQueue<int> q;
+	for (int i = 0; i < 100; ++i)
 	{
-		int data = s.top();
-		s.pop();
-
-		cout << data << endl;
+		q.push(i);
 	}
-	int size = s.size();
+
+	while (q.empty() == false)
+	{
+		int value = q.front();
+		q.pop();
+		cout << value << endl;
+	}
+
+	int size = q.size();
 	return 0;
 }
